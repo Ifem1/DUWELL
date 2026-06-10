@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+html, body {
+  background: #BA6E8F;
+  color: #F3E4EC;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-weight: 600;
+  min-height: 100vh;
+  letter-spacing: 0.005em;
+}
+
+/* solid raised panel — replaces previous warm paper */
+.paper {
+  background: #2A1530;
+  border: 1px solid #5D3C64;
+  box-shadow: 0 1px 0 rgba(211,145,176,0.15) inset, 0 10px 28px rgba(12,4,32,0.55);
+}
+
+/* primary action — solid pink brass plate */
+.brass-plate {
+  background: #BA6E8F;
+  color: #1A0E22;
+  border: 1px solid #7B466A;
+  box-shadow: 0 2px 0 #5D3C64, inset 0 1px 0 rgba(255,255,255,0.35);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+.brass-plate:hover { background: #D391B0; }
+.brass-plate:active { transform: translateY(1px); box-shadow: 0 1px 0 #5D3C64; }
+
+/* secondary — outline on dark */
+.brass-outline {
+  background: transparent;
+  color: #D391B0;
+  border: 1px solid #D391B0;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+.brass-outline:hover { background: rgba(211,145,176,0.12); }
+
+/* danger */
+.clay-outline {
+  background: transparent;
+  color: #D391B0;
+  border: 1px solid #D391B0;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+/* inspection stamp */
+.stamp {
+  display: inline-block;
+  padding: 3px 12px;
+  border: 1.5px solid currentColor;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 11px;
+  transform: rotate(-1.5deg);
+  font-family: var(--font-bodoni), serif;
+}
+
+/* the deep central mediator bar */
+.threshold-bar {
+  background: #0C0420;
+  color: #F3E4EC;
+  border: 1px solid #5D3C64;
+}
+
+/* evidence pin — solid plum card with pin head */
+.evidence-pin {
+  background: #3A1F44;
+  border: 1px solid #7B466A;
+  position: relative;
+  box-shadow: 0 6px 14px rgba(12,4,32,0.6);
+  color: #F3E4EC;
+}
+.evidence-pin::before {
+  content: "";
+  position: absolute;
+  top: -7px; left: 50%;
+  width: 12px; height: 12px;
+  background: radial-gradient(circle at 35% 35%, #F3C2D6, #D391B0 60%, #7B466A);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 4px rgba(12,4,32,0.7);
+}
+
+/* ledger horizontal rule lines */
+.ledger-line {
+  background-image: repeating-linear-gradient(180deg, transparent 0 27px, rgba(211,145,176,0.18) 27px 28px);
+}
+
+/* divider rail between the two evidence walls */
+.divider-rail {
+  background: #0C0420;
+  border-left: 1px dashed rgba(211,145,176,0.4);
+  border-right: 1px dashed rgba(211,145,176,0.4);
+}
+
+/* form controls */
+input, textarea, select {
+  background: #1A0E22;
+  border: 1px solid #5D3C64;
+  color: #F3E4EC;
+  padding: 9px 11px;
+  width: 100%;
+  font-family: var(--font-manrope), sans-serif;
+  font-weight: 600;
+}
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid #D391B0;
+  outline-offset: 0;
+  border-color: #D391B0;
+}
+label {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #D391B0;
+  font-weight: 800;
+}
+
+/* display headings — bolder */
+.font-display { font-weight: 900; letter-spacing: -0.01em; }
