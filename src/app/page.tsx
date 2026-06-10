@@ -81,7 +81,7 @@ MOVE-OUT CONDITION`}
 
       {/* Evidence Corridor */}
       <section className="mt-14">
-        <div className="text-xs uppercase tracking-[0.25em] text-[#7B466A] mb-4 font-bold">Evidence Corridor</div>
+        <div className="text-xs uppercase tracking-[0.25em] text-[#3A162B] mb-4 font-bold">Evidence Corridor</div>
         <div className="flex flex-wrap gap-3 items-stretch">
           {[
             "Lease Terms", "Move-in Proof", "Move-out Claim",
@@ -100,7 +100,7 @@ MOVE-OUT CONDITION`}
 
       {/* How Duwell judges — offset panels */}
       <section className="mt-16">
-        <div className="text-xs uppercase tracking-[0.25em] text-[#7B466A] mb-4 font-bold">How Duwell judges</div>
+        <div className="text-xs uppercase tracking-[0.25em] text-[#3A162B] mb-4 font-bold">How Duwell judges</div>
         <div className="relative h-[300px]">
           {[
             { t: "Condition difference", d: "What changed between move-in and move-out, and whether evidence supports it.", x: "left-0 top-0 rotate-[-1.5deg]" },

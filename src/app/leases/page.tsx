@@ -59,7 +59,7 @@ export default function LeasesPage() {
       <SetupNotice />
       <div className="flex justify-between items-end mb-6">
         <div>
-          <div className="text-xs uppercase tracking-[0.25em] text-[#7B466A] font-bold">Lease Vault</div>
+          <div className="text-xs uppercase tracking-[0.25em] text-[#3A162B] font-bold">Lease Vault</div>
           <h1 className="font-display text-4xl text-paper">Leases on record</h1>
         </div>
         <BrassPlateButton onClick={() => setShow((s) => !s)} icon="+">{show ? "Close" : "Add Lease"}</BrassPlateButton>

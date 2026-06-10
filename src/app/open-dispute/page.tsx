@@ -148,7 +148,7 @@ export default function OpenDisputePage() {
       <SetupNotice />
 
       <div className="mb-6">
-        <div className="text-xs uppercase tracking-[0.25em] text-[#7B466A] font-bold">Threshold File Wizard</div>
+        <div className="text-xs uppercase tracking-[0.25em] text-[#3A162B] font-bold">Threshold File Wizard</div>
         <h1 className="font-display text-4xl text-paper">Open a Dispute File</h1>
       </div>
 

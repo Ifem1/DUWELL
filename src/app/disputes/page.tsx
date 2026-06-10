@@ -42,7 +42,7 @@ export default function DisputesPage() {
 
       <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
         <div>
-          <div className="text-xs uppercase tracking-[0.25em] text-[#7B466A] font-bold">Building Directory</div>
+          <div className="text-xs uppercase tracking-[0.25em] text-[#3A162B] font-bold">Building Directory</div>
           <h1 className="font-display text-4xl text-paper">Dispute Board</h1>
           <p className="text-pin/80 text-sm mt-1">Every Threshold File on Duwell. Real submissions only.</p>
         </div>

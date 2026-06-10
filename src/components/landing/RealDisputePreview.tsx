@@ -23,7 +23,7 @@ export function RealDisputePreview() {
     <section className="mt-16">
       <div className="flex items-end justify-between mb-4">
         <div>
-          <div className="text-xs uppercase tracking-[0.25em] text-[#7B466A] font-bold">Recent Dispute Files</div>
+          <div className="text-xs uppercase tracking-[0.25em] text-[#3A162B] font-bold">Recent Dispute Files</div>
           <h3 className="font-display text-2xl text-paper">From real user submissions only</h3>
         </div>
         <Link href="/disputes" className="brass-outline px-4 py-2 text-xs !text-[#7B466A] !border-[#7B466A]">View Dispute Board</Link>
