@@ -59,8 +59,8 @@ export function getWriteClient() {
 
 export function getClient() { return getReadClient(); }
 
-export function contractAddress(): `0x${string}` | "" {
-  return (CONTRACT_ADDRESS || "") as `0x${string}` | "";
+export function contractAddress(): `0x${string}` {
+  return CONTRACT_ADDRESS as `0x${string}`;
 }
 
 export { isContractConfigured };
