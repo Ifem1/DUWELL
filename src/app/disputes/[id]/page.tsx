@@ -66,9 +66,9 @@ export default function DisputeDetailPage() {
       <LeaseBeam dispute={dispute} lease={lease} />
 
       <div className="flex flex-wrap items-center justify-between gap-3 my-6">
-        <div className="flex items-center gap-3 [&_.stamp]:!text-[#7B466A] [&_.stamp]:!font-bold">
+        <div className="flex items-center gap-3 [&_.stamp]:!text-[#3A162B] [&_.stamp]:!font-bold">
           <StatusStamp status={dispute.status} />
-          <span className="text-xs font-mono text-[#7B466A] font-bold">Filed by {dispute.filedBy}</span>
+          <span className="text-xs font-mono text-[#3A162B] font-bold">Filed by {dispute.filedBy}</span>
         </div>
         <div className="flex gap-3">
           <BrassPlateLink href={`/disputes/${id}/evidence`} variant="secondary" className="!bg-[#5D3C64] !text-paper !border-[#5D3C64]">Add Evidence</BrassPlateLink>
@@ -79,7 +79,7 @@ export default function DisputeDetailPage() {
           )}
           {review && dispute.status !== "FINALIZED" && (
             <>
-              <BrassPlateLink href={`/disputes/${id}/appeal`} variant="danger">Challenge Outcome</BrassPlateLink>
+              <BrassPlateLink href={`/disputes/${id}/appeal`} variant="danger" className="!bg-[#5D3C64] !text-white !border-[#5D3C64]">Challenge Outcome</BrassPlateLink>
               <BrassPlateButton onClick={async () => { await finalizeDispute(id); await refresh(); }}>
                 Finalize
               </BrassPlateButton>

@@ -144,10 +144,10 @@ export default function EvidencePage() {
 
       <div className="flex justify-between items-end mb-6">
         <div>
-          <div className="text-xs uppercase tracking-[0.25em] text-brass">Evidence Room</div>
+          <div className="text-xs uppercase tracking-[0.25em] text-[#3A162B] font-bold">Evidence Room</div>
           <h1 className="font-display text-4xl text-paper">Add to the Threshold File</h1>
         </div>
-        <BrassPlateLink href={`/disputes/${id}`} variant="secondary">← Back to File</BrassPlateLink>
+        <BrassPlateLink href={`/disputes/${id}`} variant="secondary" className="!text-[#3A162B] !border-[#3A162B]">← Back to File</BrassPlateLink>
       </div>
 
       {showRedactionBanner && (
