@@ -49,7 +49,7 @@ export function getWriteClient() {
   _writeClient = createClient({
     chain: studionet,
     endpoint: process.env.NEXT_PUBLIC_GENLAYER_RPC_URL || "https://studio.genlayer.com/api",
-    // @ts-expect-error genlayer-js accepts an injected EIP-1193 transport via `transport`
+    // @ts-ignore genlayer-js accepts an injected EIP-1193 transport via `transport`
     transport: eth,
     account: wallet as `0x${string}`,
   });

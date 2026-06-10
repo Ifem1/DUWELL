@@ -7,7 +7,7 @@ async function write(method: string, args: unknown[]): Promise<string> {
   }
   const client = getWriteClient();
   if (!client) throw new Error("Connect your wallet to submit on-chain transactions.");
-  // @ts-expect-error writeContract provided by genlayer-js
+  // @ts-ignore writeContract provided by genlayer-js
   const tx = await client.writeContract({
     address: contractAddress(),
     functionName: method,
@@ -16,7 +16,7 @@ async function write(method: string, args: unknown[]): Promise<string> {
   });
   const hash = typeof tx === "string" ? tx : (tx?.hash ?? "");
   try {
-    // @ts-expect-error waitForTransactionReceipt provided by genlayer-js
+    // @ts-ignore waitForTransactionReceipt provided by genlayer-js
     await client.waitForTransactionReceipt?.({ hash, status: "ACCEPTED", retries: 120, interval: 2000 });
   } catch (e: any) {
     // ACCEPTED is enough for state reads; finalisation can take much longer.

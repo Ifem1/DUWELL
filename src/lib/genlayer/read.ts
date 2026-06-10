@@ -8,7 +8,7 @@ async function read<T = string>(method: string, args: unknown[] = []): Promise<T
   const timeout = new Promise<null>((res) => setTimeout(() => res(null), 15000));
   const call = (async () => {
     try {
-      // @ts-expect-error readContract is provided by genlayer-js
+      // @ts-ignore readContract is provided by genlayer-js
       const out = await client.readContract({
         address: contractAddress(),
         functionName: method,
