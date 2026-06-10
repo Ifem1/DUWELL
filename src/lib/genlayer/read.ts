@@ -9,7 +9,7 @@ async function read<T = string>(method: string, args: unknown[] = []): Promise<T
   const call = (async () => {
     try {
       // @ts-ignore readContract is provided by genlayer-js
-      const out = await client.readContract({
+      const out = await (client as any).readContract({
         address: contractAddress(),
         functionName: method,
         args,
