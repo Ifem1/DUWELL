@@ -5,8 +5,9 @@ export function TopNavigation() {
   return (
     <header className="border-b-2 border-[#5D3C64] bg-[#F5EBF1]/70 backdrop-blur-sm sticky top-0 z-30">
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="font-display font-black text-2xl tracking-[0.3em] text-[#0C0420]">
-          DUWELL
+        <Link href="/" className="flex items-center gap-3 text-[#0C0420]">
+          <img src="/logo.svg" alt="Duwell" width={36} height={36} className="shrink-0" />
+          <span className="font-display font-black text-2xl tracking-[0.3em]">DUWELL</span>
         </Link>
         <nav className="flex items-center gap-6 text-xs uppercase tracking-[0.2em] text-[#5D3C64] font-black">
           <Link href="/disputes" className="hover:text-brass">Dispute Board</Link>

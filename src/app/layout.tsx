@@ -11,6 +11,13 @@ const mono = Space_Mono({ subsets: ["latin"], variable: "--font-mono", weight: [
 export const metadata: Metadata = {
   title: "Duwell — Rental Deposit Dispute Resolver",
   description: "Deposit disputes resolved through evidence and consensus.",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
