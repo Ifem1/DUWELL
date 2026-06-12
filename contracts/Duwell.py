@@ -311,14 +311,32 @@ Return STRICT JSON matching exactly this schema (no prose, no markdown):
   "recommended_action": "string"
 }}"""
 
-        def run() -> str:
-            return gl.nondet.exec_prompt(prompt)
-
-        raw = gl.eq_principle.prompt_comparative(
-            run,
-            "Reviewers must agree on the decision, overall responsibility, and that "
-            "tenant_refund_amount + landlord_retained_amount <= deposit_amount, with "
-            "individual deduction_results within 25% of each other.",
+        raw = gl.eq_principle.prompt_non_comparative(
+            lambda: gl.nondet.exec_prompt(prompt),
+            task=(
+                "Produce a single rental-deposit dispute verdict as STRICT JSON "
+                "(no prose, no markdown fences) matching the schema in the prompt."
+            ),
+            criteria=(
+                "Output MUST be valid JSON parseable by json.loads. "
+                "decision is one of FULL_TENANT_REFUND | PARTIAL_TENANT_REFUND | "
+                "LANDLORD_RETAINS_FULL_DEPOSIT | PARTIALLY_RESOLVED | "
+                "NEEDS_MORE_EVIDENCE | ESCALATE. "
+                "overall_responsibility is one of TENANT | LANDLORD | SHARED | UNCLEAR. "
+                "risk_level is one of LOW | MEDIUM | HIGH | CRITICAL. "
+                "confidence, tenant_refund_percent and landlord_retained_percent are "
+                "numbers between 0 and 100. "
+                "tenant_refund_amount and landlord_retained_amount are non-negative "
+                "numbers whose sum does not exceed deposit_amount. "
+                "deduction_results is an array; each item has deduction_id, category, "
+                "claimed_amount, approved_amount (>=0), responsibility in "
+                "{TENANT,LANDLORD,SHARED,UNCLEAR}, result in "
+                "{SUPPORTED,PARTIALLY_SUPPORTED,NOT_SUPPORTED,UNCLEAR,NOT_APPLICABLE}, "
+                "and a non-empty reason. "
+                "lease_findings, evidence_findings, red_flags and missing_information "
+                "are arrays of strings (may be empty). "
+                "reasoning_summary and recommended_action are non-empty strings."
+            ),
         )
 
         verdict = self._parse_and_validate_review(raw, dispute_id)
@@ -371,12 +389,27 @@ Return STRICT JSON matching:
   "final_recommendation": "string"
 }}"""
 
-        def run() -> str:
-            return gl.nondet.exec_prompt(prompt)
-
-        raw = gl.eq_principle.prompt_comparative(
-            run,
-            "Reviewers must agree on appeal_decision and new_decision.",
+        raw = gl.eq_principle.prompt_non_comparative(
+            lambda: gl.nondet.exec_prompt(prompt),
+            task=(
+                "Produce a single appeal review as STRICT JSON (no prose, no markdown) "
+                "matching the schema in the prompt."
+            ),
+            criteria=(
+                "Output MUST be valid JSON parseable by json.loads. "
+                "appeal_decision is one of ORIGINAL_DECISION_UPHELD | "
+                "ORIGINAL_DECISION_ADJUSTED | MORE_EVIDENCE_REQUIRED | "
+                "ESCALATE_TO_HUMAN_ARBITRATION | APPEAL_REJECTED. "
+                "new_decision is one of FULL_TENANT_REFUND | PARTIAL_TENANT_REFUND | "
+                "LANDLORD_RETAINS_FULL_DEPOSIT | PARTIALLY_RESOLVED | "
+                "NEEDS_MORE_EVIDENCE | ESCALATE. "
+                "confidence is a number between 0 and 100. "
+                "new_tenant_refund_amount and new_landlord_retained_amount are "
+                "non-negative numbers. "
+                "accepted_arguments and rejected_arguments are arrays of strings "
+                "(may be empty). reasoning_summary and final_recommendation are "
+                "non-empty strings."
+            ),
         )
 
         verdict = self._parse_and_validate_appeal(raw)
@@ -396,14 +429,19 @@ evidence below. Return STRICT JSON: {{ "conflicts": [{{"a": "string", "b": "stri
 
 EVIDENCE: {evidence}"""
 
-        def run() -> str:
-            return gl.nondet.exec_prompt(prompt)
-
-        raw = gl.eq_principle.prompt_comparative(run, "Reviewers must agree on the set of conflicts.")
+        raw = gl.eq_principle.prompt_non_comparative(
+            lambda: gl.nondet.exec_prompt(prompt),
+            task="Identify direct contradictions between tenant-side and landlord-side evidence as STRICT JSON.",
+            criteria=(
+                "Output MUST be valid JSON: an object with key 'conflicts' which is "
+                "an array (possibly empty). Each conflict has fields a, b, note — "
+                "all non-empty strings."
+            ),
+        )
         # store on dispute side-channel
         d = json.loads(self.disputes[dispute_id])
         try:
-            d["evidenceConflicts"] = json.loads(raw)
+            d["evidenceConflicts"] = json.loads(_strip_wrappers(raw))
         except Exception:
             d["evidenceConflicts"] = {"conflicts": []}
         self.disputes[dispute_id] = json.dumps(d)
@@ -422,11 +460,17 @@ Return STRICT JSON: {{ "clause": "{clause_name}", "interpretation": "string",
 LEASE: {lease}
 DISPUTE: {dispute}"""
 
-        def run() -> str:
-            return gl.nondet.exec_prompt(prompt)
-        raw = gl.eq_principle.prompt_comparative(run, "Reviewers must agree on supports_deduction.")
+        raw = gl.eq_principle.prompt_non_comparative(
+            lambda: gl.nondet.exec_prompt(prompt),
+            task=f"Interpret the lease clause '{clause_name}' as STRICT JSON.",
+            criteria=(
+                f"Output MUST be valid JSON with fields: clause (== '{clause_name}'), "
+                "interpretation (non-empty string), supports_deduction (boolean), "
+                "reason (non-empty string)."
+            ),
+        )
         d = json.loads(self.disputes[dispute_id])
-        d.setdefault("clauseInterpretations", {})[clause_name] = raw
+        d.setdefault("clauseInterpretations", {})[clause_name] = _strip_wrappers(raw)
         self.disputes[dispute_id] = json.dumps(d)
 
     @gl.public.write
@@ -442,9 +486,15 @@ Return STRICT JSON: {{ "deduction_id": "{deduction_id}", "responsibility":
 LEDGER: {ledger}
 EVIDENCE: {evidence}"""
 
-        def run() -> str:
-            return gl.nondet.exec_prompt(prompt)
-        gl.eq_principle.prompt_comparative(run, "Reviewers must agree on responsibility.")
+        gl.eq_principle.prompt_non_comparative(
+            lambda: gl.nondet.exec_prompt(prompt),
+            task=f"Assess deduction '{deduction_id}' as STRICT JSON.",
+            criteria=(
+                f"Output MUST be valid JSON with: deduction_id (== '{deduction_id}'), "
+                "responsibility in {TENANT,LANDLORD,SHARED,UNCLEAR}, "
+                "approved_amount (non-negative number), reason (non-empty string)."
+            ),
+        )
 
     # ===== views =========================================================
     @gl.public.view
